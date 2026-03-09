@@ -1,0 +1,50 @@
+<h1>Carrito</h1>
+
+<a href="/products">
+<button>Volver a productos</button>
+</a>
+
+<hr>
+
+{{#each cart.products}}
+
+{{#if this.product}}
+
+<div style="border:1px solid black;margin:10px;padding:10px;width:250px">
+
+<h3>{{this.product.title}}</h3>
+
+<p>Precio: ${{this.product.price}}</p>
+
+<p>Cantidad: {{this.quantity}}</p>
+
+<p>Categoría: {{this.product.category}}</p>
+
+<button onclick="deleteProduct('{{this.product._id}}')">
+Eliminar producto
+</button>
+
+</div>
+
+{{/if}}
+
+{{/each}}
+
+<script>
+
+const cartId = "69aa260f257ed50841857a0d"
+
+function deleteProduct(pid){
+
+fetch(`/api/carts/${cartId}/products/${pid}`,{
+method:"DELETE"
+})
+.then(res=>res.json())
+.then(()=>{
+alert("Producto eliminado")
+location.reload()
+})
+
+}
+
+</script>
